@@ -1,47 +1,76 @@
+# Nidhi Dhameliya – Portfolio
 
-# AI Engineer Portfolio Website (Community)
+A modern personal portfolio showcasing my projects, technical skills, and learning journey in Artificial Intelligence, Machine Learning, Generative AI, Large Language Models (LLMs), Retrieval-Augmented Generation (RAG), MLOps, Deep Learning, Computer Vision, and Data Science.
 
-A React + Vite portfolio landing page built from a Figma community design. This project is optimized for a sleek AI/ML engineer showcase with animated hero sections, featured projects, tech stack highlights, credibility panels, and contact UI.
+Built with React, TypeScript, Vite, Tailwind CSS, and Motion to provide a fast, responsive, and interactive user experience.
 
-## Key Features
+## Features
 
-- Modern React + Vite app structure
-- Tailwind CSS v4 styling via `@tailwindcss/vite`
-- Custom Figma asset resolver plugin in `vite.config.ts`
-- Dark neon UI with motion animation effects
-- Sections included: Hero, Expertise, Projects, Engineering Approach, Tech Stack, Credibility, About, Contact
-- Fully client-side portfolio template with reusable component-based UI
+- Modern and responsive portfolio design
+- Interactive UI with smooth animations
+- Project showcase with GitHub and Live Demo links
+- Skills and technology stack section
+- About Me section
+- Contact section with LinkedIn, GitHub, Medium, and Email
+- Dark theme with glassmorphism design
+- Optimized for desktop and mobile devices
 
 ## Tech Stack
 
-- Vite
+### Frontend
 - React
+- TypeScript
+- Vite
 - Tailwind CSS
-- Radix UI components
-- Motion animation (`motion/react`)
-- Lucide icons
-- `@mui/material` icons support
-- `next-themes` theming support
+- Motion
+
+### UI & Icons
+- Lucide React
+- React Icons
+
+## Featured Projects
+
+- AI Research Assistant
+- DataDesk – SQL Practice Platform
+- Climate Forecasting System
+- RFInsight – Signal Classification
+- MLOps Learning Journey
+- LLM Engineering Roadmap
+- Real-Time Aqua Detection
+- Mental Health Trends Analysis
+- Hospitality Analytics Dashboard
+- TCS Stock Market Dashboard
+- House Price Prediction
 
 ## Getting Started
 
-Recommended package manager: `pnpm`
+Clone the repository:
 
 ```bash
-pnpm install
-pnpm run dev
+git clone https://github.com/nidhidhameliya/PORTFOLIO.git
 ```
 
-If you prefer npm, install dependencies and run the dev server:
+Navigate to the project directory:
+
+```bash
+cd PORTFOLIO
+```
+
+Install dependencies:
 
 ```bash
 npm install
+```
+
+Run the development server:
+
+```bash
 npm run dev
 ```
 
-Then open the local server URL shown in the terminal.
+Open the URL displayed in your terminal.
 
-## Build
+## Build for Production
 
 ```bash
 npm run build
@@ -49,20 +78,33 @@ npm run build
 
 ## Project Structure
 
-- `src/main.tsx` — application bootstrap and root render
-- `src/app/App.tsx` — main page layout and section composition
-- `src/app/components/` — portfolio sections and UI components
-- `src/styles/` — global styles, theme, and Tailwind imports
-- `vite.config.ts` — Vite configuration, plugin setup, and path alias
-- `index.html` — HTML template and metadata
+```
+PORTFOLIO/
+│── src/
+│   ├── app/
+│   ├── components/
+│   ├── styles/
+│   └── assets/
+│
+├── public/
+├── index.html
+├── vite.config.ts
+├── package.json
+└── README.md
+```
 
-## Notes
+## Connect With Me
 
-- `src/app/App.tsx` forces dark mode by adding `dark` to `document.documentElement`.
-- `vite.config.ts` includes a custom resolver for `figma:asset/` imports.
-- The project includes `ATTRIBUTIONS.md` and a `guidelines/` folder for reference content.
+- **Portfolio:** *(Add your deployed portfolio URL)*
+- **GitHub:** https://github.com/nidhidhameliya
+- **LinkedIn:** https://linkedin.com/in/nidhi-dhameliya-866bb7270
+- **Medium:** https://nidhidhameliya2004.medium.com/
+- **Email:** nidhidhameliya2004@gmail.com
+
+## About Me
+
+I am an **M.Tech Data Science & Machine Learning student** with a strong interest in Artificial Intelligence, Machine Learning, Generative AI, LLMs, RAG, MLOps, and Full-Stack AI application development. I enjoy building practical AI solutions and continuously learning modern AI technologies.
 
 ## License
 
-This repository is a community-sourced portfolio template and should be used according to any applicable attribution or license terms from the source design.
-  
+This project is licensed under the MIT License. Feel free to explore the code for learning and inspiration.
