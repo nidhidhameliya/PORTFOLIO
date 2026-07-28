@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { ChevronDown } from "lucide-react";
+import resumePdf from "../../imports/NIDHI_RESUME.pdf";
 
 interface HeroProps {
   onViewProjects: () => void;
@@ -103,7 +104,7 @@ export function Hero({ onViewProjects }: HeroProps) {
               border: '1px solid var(--glass-border)',
               backdropFilter: 'blur(10px)',
             }}
-            onClick={() => window.open('/NIDHI_RESUME.pdf', '_blank')}
+            onClick={() => window.open(resumePdf, '_blank', 'noopener,noreferrer')}
           >
             <span className="relative z-10 text-white group-hover:text-[var(--neon-cyan)] transition-colors">
               View Resume
