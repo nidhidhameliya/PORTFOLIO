@@ -103,10 +103,10 @@ export function Hero({ onViewProjects }: HeroProps) {
               border: '1px solid var(--glass-border)',
               backdropFilter: 'blur(10px)',
             }}
-            onClick={() => window.open('#', '_blank')}
+            onClick={() => window.open('/Nidhi_Dhameliya._Resume.pdf', '_blank')}
           >
             <span className="relative z-10 text-white group-hover:text-[var(--neon-cyan)] transition-colors">
-              Download Resume
+              View Resume
             </span>
           </button>
         </motion.div>
