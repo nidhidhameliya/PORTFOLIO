@@ -60,7 +60,7 @@ export function Expertise() {
         >
           <h2 className="text-4xl md:text-5xl mb-4">What I Do</h2>
           <p className="text-gray-400 text-lg">
-            Specialized expertise in cutting-edge AI & ML systems
+           Exploring AI, LLMs, Data Analytics & Machine Learning through projects
           </p>
         </motion.div>
 
