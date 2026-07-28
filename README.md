@@ -57,6 +57,15 @@ Open the local URL shown in the terminal.
 pnpm run build
 ```
 
+## Stats Configuration
+
+The portfolio uses a live visitor counter for the `Visitors` stat and a local config file for the manually updated values.
+
+- `src/data/stats.ts` contains:
+  - `projects`
+  - `yearsExp`
+- `Visitors` is fetched from CountAPI on page load and animated into view.
+
 ## Project Structure
 
 ```text
@@ -64,6 +73,7 @@ PORTFOLIO/
 ├── src/
 │   ├── app/
 │   ├── components/
+│   ├── data/
 │   ├── styles/
 │   └── imports/
 ├── public/

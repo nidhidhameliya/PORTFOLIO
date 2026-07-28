@@ -1,17 +1,73 @@
 import { motion } from "motion/react";
 import { ChevronDown } from "lucide-react";
 import resumePdf from "../../imports/NIDHI_RESUME.pdf";
+import { useEffect, useMemo, useState } from "react";
+import { stats } from "@/data/stats";
 
 interface HeroProps {
   onViewProjects: () => void;
 }
 
 export function Hero({ onViewProjects }: HeroProps) {
-  const stats = [
-    { value: "18+", label: "Projects" },
-    { value: "394", label: "Visitors" },
-    { value: "2+", label: "Years Exp." },
-  ];
+  const [visitorCount, setVisitorCount] = useState<number | null>(null);
+  const [countAnimation, setCountAnimation] = useState<number>(0);
+
+  useEffect(() => {
+    const FALLBACK_VISITORS = 394;
+    const namespace = "nidhidhameliya-portfolio";
+    const key = "visitors";
+    const url = `https://api.countapi.xyz/hit/${encodeURIComponent(namespace)}/${encodeURIComponent(key)}`;
+
+    let active = true;
+
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        if (!active) return;
+        const count = typeof data.value === "number" ? data.value : FALLBACK_VISITORS;
+        setVisitorCount(count);
+      })
+      .catch(() => {
+        if (!active) return;
+        setVisitorCount(FALLBACK_VISITORS);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (visitorCount === null) return;
+
+    const duration = 1200;
+    const startTime = performance.now();
+
+    const animate = (currentTime: number) => {
+      const elapsed = Math.min(currentTime - startTime, duration);
+      const progress = elapsed / duration;
+      const easedProgress = 1 - Math.pow(1 - progress, 3);
+      const currentValue = Math.round(visitorCount * easedProgress);
+      setCountAnimation(currentValue);
+
+      if (elapsed < duration) {
+        requestAnimationFrame(animate);
+      } else {
+        setCountAnimation(visitorCount);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, [visitorCount]);
+
+  const statsList = useMemo(
+    () => [
+      { value: `${stats.projects}+`, label: "Projects" },
+      { value: visitorCount === null ? "..." : countAnimation.toLocaleString(), label: "Visitors" },
+      { value: `${stats.yearsExp}+`, label: "Years Exp." },
+    ],
+    [visitorCount, countAnimation],
+  );
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -96,7 +152,7 @@ export function Hero({ onViewProjects }: HeroProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          {stats.map((stat) => (
+          {statsList.map((stat) => (
             <div
               key={stat.label}
               className="rounded-2xl border border-white/10 bg-white/5 px-6 py-5 backdrop-blur-xl shadow-[0_0_25px_rgba(0,240,255,0.08)]"
