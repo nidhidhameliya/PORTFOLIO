@@ -1,7 +1,7 @@
 # Nidhi Dhameliya – Portfolio
 
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-00C853?style=for-the-badge&logo=vercel&logoColor=white)](https://portfolio-vzcl.vercel.app/)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-00C853?style=for-the-badge&logo=vercel&logoColor=white)](https://portfolio-nidhidhameliya.vercel.app/)
 
 A modern personal portfolio showcasing my projects, technical skills, and learning journey in Artificial Intelligence, Machine Learning, Generative AI, Large Language Models (LLMs), Retrieval-Augmented Generation (RAG), MLOps, Deep Learning, Computer Vision, and Data Science.
 
