@@ -7,6 +7,12 @@ interface HeroProps {
 }
 
 export function Hero({ onViewProjects }: HeroProps) {
+  const stats = [
+    { value: "18+", label: "Projects" },
+    { value: "394", label: "Visitors" },
+    { value: "2+", label: "Years Exp." },
+  ];
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Animated background */}
@@ -76,13 +82,34 @@ export function Hero({ onViewProjects }: HeroProps) {
         </motion.div>
 
         <motion.p
-          className="text-xl md:text-2xl text-gray-400 mb-12 font-mono"
+          className="text-xl md:text-2xl text-gray-400 mb-8 font-mono"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           Machine Learning • Deep Learning • LLMs • RAG • NLP
         </motion.p>
+
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto mb-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+        >
+          {stats.map((stat) => (
+            <div
+              key={stat.label}
+              className="rounded-2xl border border-white/10 bg-white/5 px-6 py-5 backdrop-blur-xl shadow-[0_0_25px_rgba(0,240,255,0.08)]"
+            >
+              <div className="text-2xl md:text-3xl font-bold text-[var(--neon-cyan)]">
+                {stat.value}
+              </div>
+              <div className="mt-1 text-sm uppercase tracking-[0.2em] text-gray-400 font-mono">
+                {stat.label}
+              </div>
+            </div>
+          ))}
+        </motion.div>
 
         <motion.div
           className="flex flex-col sm:flex-row gap-4 justify-center"
