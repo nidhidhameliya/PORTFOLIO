@@ -1,16 +1,19 @@
 import { motion } from "motion/react";
 import { ChevronDown } from "lucide-react";
 import resumePdf from "../../imports/NIDHI_RESUME.pdf";
-import { useEffect, useMemo, useState } from "react";
-import { stats } from "@/data/stats";
+import { useEffect, useRef, useState } from "react";
 
 interface HeroProps {
   onViewProjects: () => void;
 }
 
 export function Hero({ onViewProjects }: HeroProps) {
-  const [visitorCount, setVisitorCount] = useState<number | null>(null);
-  const [countAnimation, setCountAnimation] = useState<number>(0);
+  const [visitorTotal, setVisitorTotal] = useState<number | null>(null);
+  const [visitorCount, setVisitorCount] = useState(0);
+  const [projectCount, setProjectCount] = useState(0);
+  const [yearsCount, setYearsCount] = useState(0);
+  const [hasAnimatedStats, setHasAnimatedStats] = useState(false);
+  const statsRowRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const FALLBACK_VISITORS = 394;
@@ -25,11 +28,11 @@ export function Hero({ onViewProjects }: HeroProps) {
       .then((data) => {
         if (!active) return;
         const count = typeof data.value === "number" ? data.value : FALLBACK_VISITORS;
-        setVisitorCount(count);
+        setVisitorTotal(count);
       })
       .catch(() => {
         if (!active) return;
-        setVisitorCount(FALLBACK_VISITORS);
+        setVisitorTotal(FALLBACK_VISITORS);
       });
 
     return () => {
@@ -37,37 +40,60 @@ export function Hero({ onViewProjects }: HeroProps) {
     };
   }, []);
 
+  // Option 1: CountAPI no-backend approach.
+  // Option 2: If you already have a backend, replace the fetch above with a server endpoint
+  // that increments a persistent `visits` counter on page load and returns the total.
+
   useEffect(() => {
-    if (visitorCount === null) return;
+    if (!statsRowRef.current || hasAnimatedStats) return;
 
-    const duration = 1200;
-    const startTime = performance.now();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry?.isIntersecting) {
+          setHasAnimatedStats(true);
+        }
+      },
+      { threshold: 0.35 },
+    );
 
-    const animate = (currentTime: number) => {
-      const elapsed = Math.min(currentTime - startTime, duration);
-      const progress = elapsed / duration;
-      const easedProgress = 1 - Math.pow(1 - progress, 3);
-      const currentValue = Math.round(visitorCount * easedProgress);
-      setCountAnimation(currentValue);
+    observer.observe(statsRowRef.current);
 
-      if (elapsed < duration) {
-        requestAnimationFrame(animate);
-      } else {
-        setCountAnimation(visitorCount);
-      }
+    return () => observer.disconnect();
+  }, [hasAnimatedStats]);
+
+  useEffect(() => {
+    if (!hasAnimatedStats) return;
+
+    const animateValue = (target: number, setter: React.Dispatch<React.SetStateAction<number>>) => {
+      const duration = 1400;
+      const startTime = performance.now();
+
+      const step = (currentTime: number) => {
+        const elapsed = Math.min(currentTime - startTime, duration);
+        const progress = elapsed / duration;
+        const easedProgress = 1 - Math.pow(1 - progress, 3);
+        setter(Math.round(target * easedProgress));
+
+        if (elapsed < duration) {
+          requestAnimationFrame(step);
+        } else {
+          setter(target);
+        }
+      };
+
+      requestAnimationFrame(step);
     };
 
-    requestAnimationFrame(animate);
-  }, [visitorCount]);
+    animateValue(10, setProjectCount);
+    animateValue(2, setYearsCount);
 
-  const statsList = useMemo(
-    () => [
-      { value: `${stats.projects}+`, label: "Projects" },
-      { value: visitorCount === null ? "..." : countAnimation.toLocaleString(), label: "Visitors" },
-      { value: `${stats.yearsExp}+`, label: "Years Exp." },
-    ],
-    [visitorCount, countAnimation],
-  );
+    if (visitorTotal !== null) {
+      animateValue(visitorTotal, setVisitorCount);
+    }
+  }, [hasAnimatedStats, visitorTotal]);
+
+  const visitorsLabel = visitorTotal === null ? "..." : visitorCount.toLocaleString();
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -147,24 +173,44 @@ export function Hero({ onViewProjects }: HeroProps) {
         </motion.p>
 
         <motion.div
+          ref={statsRowRef}
           className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto mb-10"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          {statsList.map((stat) => (
-            <div
-              key={stat.label}
-              className="rounded-2xl border border-white/10 bg-white/5 px-6 py-5 backdrop-blur-xl shadow-[0_0_25px_rgba(0,240,255,0.08)]"
-            >
-              <div className="text-2xl md:text-3xl font-bold text-[var(--neon-cyan)]">
-                {stat.value}
-              </div>
-              <div className="mt-1 text-sm uppercase tracking-[0.2em] text-gray-400 font-mono">
-                {stat.label}
-              </div>
+          <div
+            className="rounded-2xl border border-white/10 bg-white/5 px-6 py-5 backdrop-blur-xl shadow-[0_0_25px_rgba(0,240,255,0.08)]"
+          >
+            <div id="projectCount" className="text-2xl md:text-3xl font-bold text-[var(--neon-cyan)]">
+              {projectCount}+
             </div>
-          ))}
+            <div className="mt-1 text-sm uppercase tracking-[0.2em] text-gray-400 font-mono">
+              Projects
+            </div>
+          </div>
+
+          <div
+            className="rounded-2xl border border-white/10 bg-white/5 px-6 py-5 backdrop-blur-xl shadow-[0_0_25px_rgba(0,240,255,0.08)]"
+          >
+            <div id="visitorCount" className="text-2xl md:text-3xl font-bold text-[var(--neon-cyan)]">
+              {visitorsLabel}
+            </div>
+            <div className="mt-1 text-sm uppercase tracking-[0.2em] text-gray-400 font-mono">
+              Visitors
+            </div>
+          </div>
+
+          <div
+            className="rounded-2xl border border-white/10 bg-white/5 px-6 py-5 backdrop-blur-xl shadow-[0_0_25px_rgba(0,240,255,0.08)]"
+          >
+            <div className="text-2xl md:text-3xl font-bold text-[var(--neon-cyan)]">
+              {yearsCount}+
+            </div>
+            <div className="mt-1 text-sm uppercase tracking-[0.2em] text-gray-400 font-mono">
+              Years Exp.
+            </div>
+          </div>
         </motion.div>
 
         <motion.div
