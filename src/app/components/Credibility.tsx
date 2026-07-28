@@ -61,9 +61,9 @@ export function Credibility() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl md:text-5xl mb-4">Projects & Experience</h2>
+          <h2 className="text-4xl md:text-5xl mb-4">Academic Highlights</h2>
           <p className="text-gray-400 text-lg">
-            Hands-on experience through AI, Machine Learning, and Data Science projects.
+            Showcasing my academic performance, projects, and certifications.
           </p>
         </motion.div>
 
