@@ -12,30 +12,35 @@ export function Hero({ onViewProjects }: HeroProps) {
   const [visitorCount, setVisitorCount] = useState<number | null>(null);
   const [countAnimation, setCountAnimation] = useState<number>(0);
 
-  useEffect(() => {
-    const FALLBACK_VISITORS = 394;
-    const namespace = "nidhidhameliya-portfolio";
-    const key = "visitors";
-    const url = `https://api.countapi.xyz/hit/${encodeURIComponent(namespace)}/${encodeURIComponent(key)}`;
+useEffect(() => {
+  const FALLBACK_VISITORS = 394;
 
-    let active = true;
+  let active = true;
 
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        if (!active) return;
-        const count = typeof data.value === "number" ? data.value : FALLBACK_VISITORS;
-        setVisitorCount(count);
-      })
-      .catch(() => {
-        if (!active) return;
-        setVisitorCount(FALLBACK_VISITORS);
-      });
+  fetch("/api/visitors")
+    .then((response) => response.json())
+    .then((data) => {
+      if (!active) return;
 
-    return () => {
-      active = false;
-    };
-  }, []);
+      const count =
+        typeof data.visitors === "number"
+          ? data.visitors
+          : FALLBACK_VISITORS;
+
+      setVisitorCount(count);
+    })
+    .catch(() => {
+      if (!active) return;
+
+      setVisitorCount(FALLBACK_VISITORS);
+    });
+
+  return () => {
+    active = false;
+  };
+}, []);
+
+
 
   useEffect(() => {
     if (visitorCount === null) return;
