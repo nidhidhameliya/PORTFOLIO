@@ -25,6 +25,23 @@ const projects = [
     github: "https://github.com/nidhidhameliya/DataDesk",
     demo: "https://data-desk-pt7h9odve-nidhidhameliyas-projects.vercel.app/",
   },
+  {
+  title: "Deepfake Detective – AI Image Detection System",
+  problem:
+    "AI-powered deepfake and AI-generated image detection platform featuring binary classification, generator attribution, Grad-CAM explainability, and real-time analytics.",
+  stack: [
+    "PyTorch",
+    "Streamlit",
+    "ResNet50",
+    "Grad-CAM",
+    "Hugging Face Hub"
+  ],
+  impact:
+    "Built a dual-stage AI pipeline that detects AI-generated images, identifies the likely source model from 25+ generators, and provides visual explanations using Grad-CAM with automatic model loading from Hugging Face.",
+  gradient: "from-red-500 to-orange-500",
+  github: "https://github.com/nidhidhameliya/Deep-Fake-Detection",
+  demo: "https://deep-fake-detection-system.streamlit.app/",
+},
 
   {
     title: "Climate Forecasting System",
