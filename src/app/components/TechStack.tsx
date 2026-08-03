@@ -62,7 +62,7 @@ const categoryColors: Record<string, string> = {
 
 export function TechStack() {
   return (
-    <section className="py-24 px-6">
+    <section id="tech-stack" className="py-24 px-6">
       <div className="max-w-7xl mx-auto">
         <motion.div
           className="text-center mb-16"

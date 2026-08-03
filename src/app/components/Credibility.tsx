@@ -34,7 +34,7 @@ const metrics = [
 
 export function Credibility() {
   return (
-    <section className="py-24 px-6 relative overflow-hidden">
+    <section id="academic" className="py-24 px-6 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-5">
         <div 

@@ -4,7 +4,7 @@ import profilePhoto from "@/imports/nidhi(2).jpeg";
 
 export function About() {
   return (
-    <section className="py-24 px-6">
+    <section id="about" className="py-24 px-6">
       <div className="max-w-5xl mx-auto">
         <motion.div
           className="text-center mb-16"

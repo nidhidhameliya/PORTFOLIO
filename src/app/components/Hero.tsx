@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Cpu, GraduationCap, UserRound } from "lucide-react";
 import resumePdf from "../../imports/NIDHI_RESUME.pdf";
 import { useEffect, useMemo, useState } from "react";
 import { stats } from "@/data/stats";
@@ -73,6 +73,30 @@ useEffect(() => {
     ],
     [visitorCount, countAnimation],
   );
+
+  const exploreCards = [
+    {
+      id: "tech-stack",
+      title: "Tech Stack",
+      description: "Explore the frameworks, tools, and AI systems behind my portfolio work.",
+      icon: Cpu,
+      accent: "var(--neon-cyan)",
+    },
+    {
+      id: "academic",
+      title: "Academic Highlights",
+      description: "A quick look at the coursework, achievements, and milestones that shaped my path.",
+      icon: GraduationCap,
+      accent: "var(--neon-blue)",
+    },
+    {
+      id: "about",
+      title: "About Me",
+      description: "Learn more about my background, ambitions, and the story driving my AI journey.",
+      icon: UserRound,
+      accent: "var(--neon-purple)",
+    },
+  ];
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -198,6 +222,59 @@ useEffect(() => {
               View Resume
             </span>
           </button>
+        </motion.div>
+
+        <motion.div
+          className="mt-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+        >
+          <p className="text-xs md:text-sm font-mono tracking-[0.3em] text-white/60 uppercase mb-5">
+            Explore More
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto text-left">
+            {exploreCards.map((card) => {
+              const Icon = card.icon;
+
+              return (
+                <motion.button
+                  key={card.id}
+                  type="button"
+                  onClick={() => document.getElementById(card.id)?.scrollIntoView({ behavior: "smooth" })}
+                  className="group relative overflow-hidden rounded-2xl p-5 text-left transition-all duration-300 hover:scale-[1.03]"
+                  style={{
+                    background: 'var(--glass-bg)',
+                    border: '1px solid var(--glass-border)',
+                    backdropFilter: 'blur(10px)',
+                  }}
+                  whileHover={{
+                    boxShadow: `0 0 32px ${card.accent}40`,
+                  }}
+                >
+                  <div
+                    className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl border"
+                    style={{
+                      background: `${card.accent}16`,
+                      borderColor: `${card.accent}33`,
+                    }}
+                  >
+                    <Icon className="h-6 w-6" style={{ color: card.accent }} />
+                  </div>
+                  <h3 className="mb-2 text-lg font-semibold text-white">{card.title}</h3>
+                  <p className="text-sm leading-relaxed text-gray-300">{card.description}</p>
+
+                  <div
+                    className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    style={{
+                      background: `radial-gradient(circle at center, ${card.accent}18, transparent 70%)`,
+                    }}
+                  />
+                </motion.button>
+              );
+            })}
+          </div>
         </motion.div>
 
         <motion.div
